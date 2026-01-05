@@ -33,7 +33,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
           {/* Brand */}
           <div className="col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-4">
+            <Link href="/" className="flex items-center gap-2 mb-4">
               <span className="text-subtitle font-bold">
                 Poly<span className="text-primary">Pro</span>
               </span>
@@ -51,7 +51,7 @@ export function Footer() {
               {footerLinks.product.map((link) => (
                 <li key={link.label}>
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className="text-small text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
@@ -68,7 +68,7 @@ export function Footer() {
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className="text-small text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
@@ -85,7 +85,7 @@ export function Footer() {
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className="text-small text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
@@ -102,7 +102,7 @@ export function Footer() {
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className="text-small text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
