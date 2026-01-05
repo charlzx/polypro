@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "../components/providers";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "PolyPro - Prediction Market Intelligence",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className="antialiased">
         <Providers>
           {children}
+          <Toaster />
         </Providers>
       </body>
     </html>
