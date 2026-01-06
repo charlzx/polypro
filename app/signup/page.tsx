@@ -16,9 +16,11 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Envelope, User } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function SignupPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,8 +30,14 @@ export default function SignupPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate signup
+    // Simulate signup - create and login user
     setTimeout(() => {
+      login({
+        id: "user-" + Date.now(),
+        name: name || "New User",
+        email: email || "user@example.com",
+        tier: "free",
+      });
       setIsLoading(false);
       router.push("/dashboard");
     }, 1000);
@@ -38,6 +46,12 @@ export default function SignupPage() {
   const handleSocialLogin = (provider: string) => {
     console.log(`Signup with ${provider}`);
     // Simulate social signup
+    login({
+      id: "user-" + Date.now(),
+      name: "New User",
+      email: "user@example.com",
+      tier: "free",
+    });
     setTimeout(() => {
       router.push("/dashboard");
     }, 500);

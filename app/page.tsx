@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { MobileNav, MobileNavTrigger } from "@/components/MobileNav";
+import { PublicHeader } from "@/components/PublicHeader";
 import { Footer } from "@/components/Footer";
 import { useMarkets } from "@/services/polymarket";
 import { useMarketWebSocket } from "@/hooks/useMarketWebSocket";
@@ -328,52 +329,11 @@ export default function LandingPage() {
       <MobileNav isOpen={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
 
       {/* Header */}
-      <header className="sticky top-0 z-50 h-16 bg-background border-b border-border">
-        <div className="container h-full flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-subtitle font-bold">
-              Poly<span className="text-primary">Pro</span>
-            </span>
-          </Link>
-
-          {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-6 ml-8">
-            <Link href="/markets" className="text-small text-muted-foreground hover:text-foreground transition-colors">
-              Markets
-            </Link>
-            <Link href="/dashboard" className="text-small text-muted-foreground hover:text-foreground transition-colors">
-              Analytics
-            </Link>
-            <Link href="/arbitrage" className="text-small text-muted-foreground hover:text-foreground transition-colors">
-              Arbitrage
-            </Link>
-          </nav>
-
-          {/* Search - desktop only */}
-          <div className="flex-1 max-w-xl hidden md:block">
-            <div className="relative">
-              <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search markets..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 bg-secondary/50 border-transparent focus:border-border"
-              />
-            </div>
-          </div>
-
-          {/* Right side */}
-          <div className="flex items-center gap-2 shrink-0 ml-auto">
-            <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
-              <Link href="/auth">Log in</Link>
-            </Button>
-            <Button size="sm" asChild className="hidden md:inline-flex">
-              <Link href="/auth?mode=signup">Sign up</Link>
-            </Button>
-            <MobileNavTrigger onClick={() => setMobileNavOpen(true)} />
-          </div>
-        </div>
-      </header>
+      <PublicHeader 
+        searchQuery={searchQuery} 
+        onSearchChange={setSearchQuery}
+        onMobileNavOpen={() => setMobileNavOpen(true)}
+      />
 
       {/* Predictions Ticker */}
       <PredictionsTicker />

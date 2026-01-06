@@ -28,6 +28,10 @@ import {
 } from "@phosphor-icons/react";
 import { useMarkets, MARKET_CATEGORIES, type MarketCategory, type TransformedMarket } from "@/services/polymarket";
 import { motion } from "framer-motion";
+import { useAuth } from "@/hooks/useAuth";
+import { AppHeader } from "@/components/AppHeader";
+import { PublicHeader } from "@/components/PublicHeader";
+import { MobileNav } from "@/components/MobileNav";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -152,12 +156,14 @@ function MarketSkeleton() {
 }
 
 export default function MarketsPage() {
+  const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<MarketCategory>("All");
   const [sortBy, setSortBy] = useState("volume");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [watchlist, setWatchlist] = useState<string[]>(() => getWatchlist());
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { toast } = useToast();
 
   // Fetch markets
@@ -246,9 +252,27 @@ export default function MarketsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container py-8">
-        <div className="space-y-6">
+    <>
+      {/* Conditional Header based on auth */}
+      {isAuthenticated ? (
+        <AppHeader />
+      ) : (
+        <PublicHeader 
+          searchQuery={searchQuery} 
+          onSearchChange={setSearchQuery}
+          onMobileNavOpen={() => setMobileNavOpen(true)}
+        />
+      )}
+
+      {/* Mobile Nav for public view */}
+      {!isAuthenticated && (
+        <MobileNav isOpen={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
+      )}
+
+      <div className="min-h-screen bg-background">
+        <main className={isAuthenticated ? "pt-[120px] md:pt-[88px] pb-20 md:pb-0" : "pt-14"}>
+          <div className="container py-8">
+            <div className="space-y-6">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -503,6 +527,8 @@ export default function MarketsPage() {
           )}
         </div>
       </div>
+    </main>
     </div>
+    </>
   );
 }
