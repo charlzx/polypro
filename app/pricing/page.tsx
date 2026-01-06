@@ -14,7 +14,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
-import { MobileNav, MobileNavTrigger } from "@/components/MobileNav";
+import { PublicHeader } from "@/components/PublicHeader";
 
 const plans = [
   {
@@ -94,52 +94,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Mobile Navigation */}
-      <MobileNav isOpen={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
-
-      {/* Header */}
-      <header className="sticky top-0 z-50 h-16 glass border-b border-border">
-        <div className="container h-full flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-subtitle font-bold">
-              Poly<span className="text-primary">Pro</span>
-            </span>
-          </Link>
-
-          {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-6 ml-8">
-            <Link
-              href="/markets"
-              className="text-small text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Markets
-            </Link>
-            <Link
-              href="/dashboard"
-              className="text-small text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Analytics
-            </Link>
-            <Link
-              href="/pricing"
-              className="text-small text-foreground font-medium transition-colors"
-            >
-              Pricing
-            </Link>
-          </nav>
-
-          {/* Right side */}
-          <div className="flex items-center gap-2 shrink-0 ml-auto">
-            <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
-              <Link href="/auth">Log in</Link>
-            </Button>
-            <Button size="sm" asChild className="hidden md:inline-flex">
-              <Link href="/auth?mode=signup">Sign up</Link>
-            </Button>
-            <MobileNavTrigger onClick={() => setMobileNavOpen(true)} />
-          </div>
-        </div>
-      </header>
+      <PublicHeader onMobileNavOpen={() => setMobileNavOpen(true)} />
 
       {/* Hero */}
       <section className="py-16 md:py-24 border-b border-border">

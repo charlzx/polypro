@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 import {
   TrendUp,
   TrendDown,
@@ -126,6 +127,16 @@ const categoryData = [
 
 export default function PortfolioPage() {
   const [timeframe, setTimeframe] = useState("30D");
+  const { shouldShowContent } = useAuthGuard({ redirectIfNotAuth: true });
+
+  // Show loading while checking auth
+  if (!shouldShowContent) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

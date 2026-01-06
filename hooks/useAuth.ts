@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export interface User {
   id: string;
@@ -10,37 +10,53 @@ export interface User {
   tier: "free" | "pro" | "premium";
 }
 
-// Mock auth hook - replace with real auth later
-export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Mock: Check if user is "logged in" via localStorage
+// Helper to get initial auth state
+function getInitialAuthState(): { user: User | null; isAuthenticated: boolean } {
+  if (typeof window === 'undefined') {
+    return { user: null, isAuthenticated: false };
+  }
+  
+  try {
     const mockUser = localStorage.getItem("polypro-mock-user");
     if (mockUser) {
-      try {
-        setUser(JSON.parse(mockUser));
-      } catch {
-        setUser(null);
-      }
+      const userData = JSON.parse(mockUser);
+      return { user: userData, isAuthenticated: true };
     }
+  } catch {
+    // Ignore parse errors
+  }
+  return { user: null, isAuthenticated: false };
+}
+
+// Mock auth hook - replace with real auth later
+export function useAuth() {
+  const [authState, setAuthState] = useState(() => getInitialAuthState());
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Recheck auth on mount (for SSR hydration)
+  useEffect(() => {
+    const state = getInitialAuthState();
+    setAuthState(state);
     setIsLoading(false);
   }, []);
 
-  const login = (userData: User) => {
-    localStorage.setItem("polypro-mock-user", JSON.stringify(userData));
-    setUser(userData);
-  };
+  const login = useCallback((userData: User) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("polypro-mock-user", JSON.stringify(userData));
+    }
+    setAuthState({ user: userData, isAuthenticated: true });
+  }, []);
 
-  const logout = () => {
-    localStorage.removeItem("polypro-mock-user");
-    setUser(null);
-  };
+  const logout = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("polypro-mock-user");
+    }
+    setAuthState({ user: null, isAuthenticated: false });
+  }, []);
 
   return {
-    user,
-    isAuthenticated: !!user,
+    user: authState.user,
+    isAuthenticated: authState.isAuthenticated,
     isLoading,
     login,
     logout,

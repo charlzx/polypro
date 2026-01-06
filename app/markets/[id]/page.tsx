@@ -23,6 +23,8 @@ import {
   ChartLine,
 } from "@phosphor-icons/react";
 import { useMarket } from "@/services/polymarket";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
+import { AppHeader } from "@/components/AppHeader";
 import {
   XAxis,
   YAxis,
@@ -259,6 +261,7 @@ export default function MarketDetailPage({ params }: { params: Promise<{ id: str
   const { data: market, isLoading, error } = useMarket(id);
   const [timeframe, setTimeframe] = useState("30D");
   const [isWatched, setIsWatched] = useState(() => getWatchlist().includes(id));
+  const { shouldShowContent } = useAuthGuard({ redirectIfNotAuth: true });
 
   // Generate chart data
   const chartData = useMemo(() => {
@@ -279,9 +282,20 @@ export default function MarketDetailPage({ params }: { params: Promise<{ id: str
   const volatility: 'low' | 'medium' | 'high' = 'medium';
   const momentum: 'bullish' | 'bearish' | 'neutral' = market && market.change24h > 0 ? 'bullish' : market && market.change24h < 0 ? 'bearish' : 'neutral';
 
+  // Show loading while checking auth
+  if (!shouldShowContent) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
+        <AppHeader />
+        <main className="pt-[120px] md:pt-[88px] pb-20 md:pb-0">
         <div className="container py-8 space-y-6">
           <Skeleton className="h-8 w-64" />
           <Skeleton className="h-12 w-full max-w-xl" />
@@ -296,6 +310,7 @@ export default function MarketDetailPage({ params }: { params: Promise<{ id: str
             </div>
           </div>
         </div>
+        </main>
       </div>
     );
   }
@@ -303,6 +318,8 @@ export default function MarketDetailPage({ params }: { params: Promise<{ id: str
   if (error || !market) {
     return (
       <div className="min-h-screen bg-background">
+        <AppHeader />
+        <main className="pt-[120px] md:pt-[88px] pb-20 md:pb-0">
         <div className="container py-16 text-center">
           <h1 className="text-title mb-4">Market Not Found</h1>
           <p className="text-muted-foreground mb-6">
@@ -312,12 +329,15 @@ export default function MarketDetailPage({ params }: { params: Promise<{ id: str
             <Link href="/markets">Browse Markets</Link>
           </Button>
         </div>
+        </main>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background">
+      <AppHeader />
+      <main className="pt-[120px] md:pt-[88px] pb-20 md:pb-0">
       <div className="container py-8 space-y-6">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-small text-muted-foreground">
@@ -692,6 +712,7 @@ export default function MarketDetailPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
       </div>
+      </main>
     </div>
   );
 }

@@ -16,6 +16,8 @@ import {
 } from "@phosphor-icons/react";
 import { useMarkets, type TransformedMarket } from "@/services/polymarket";
 import { motion } from "framer-motion";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
+import { AppHeader } from "@/components/AppHeader";
 
 // Local storage for watchlist
 function getWatchlist(): string[] {
@@ -138,7 +140,9 @@ function MarketSkeleton() {
 
 export default function WatchlistPage() {
   const [watchlist, setWatchlist] = useState<string[]>(() => getWatchlist());
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { toast } = useToast();
+  const { shouldShowContent } = useAuthGuard({ redirectIfNotAuth: true });
 
   // Fetch markets
   const { data: markets, isLoading } = useMarkets({
@@ -188,9 +192,20 @@ export default function WatchlistPage() {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
+  // Show loading while checking auth
+  if (!shouldShowContent) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
-      <div className="container py-8">
+      <AppHeader />
+      <main className="pt-[120px] md:pt-[88px] pb-20 md:pb-0">
+        <div className="container py-8">
         <div className="space-y-6">
           {/* Header */}
           <motion.div
@@ -253,7 +268,8 @@ export default function WatchlistPage() {
             </div>
           )}
         </div>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { AppHeader } from "@/components/AppHeader";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 import {
   Bell,
   Plus,
@@ -48,6 +49,7 @@ export default function AlertsPage() {
     market: "",
     threshold: [10],
   });
+  const { shouldShowContent } = useAuthGuard({ redirectIfNotAuth: true });
 
   const toggleAlert = (id: number) => {
     setAlertList((prev) =>
@@ -58,6 +60,15 @@ export default function AlertsPage() {
   const deleteAlert = (id: number) => {
     setAlertList((prev) => prev.filter((alert) => alert.id !== id));
   };
+
+  // Show loading while checking auth
+  if (!shouldShowContent) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

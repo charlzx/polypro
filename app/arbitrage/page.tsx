@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { AppHeader } from "@/components/AppHeader";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 import {
   ArrowsClockwise,
   TrendUp,
@@ -38,8 +39,18 @@ export default function ArbitragePage() {
     kalshi: true,
     predictit: true,
   });
+  const { shouldShowContent } = useAuthGuard({ redirectIfNotAuth: true });
 
   const filteredOpportunities = opportunities.filter((opp) => opp.profit >= minProfit[0]);
+
+  // Show loading while checking auth
+  if (!shouldShowContent) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

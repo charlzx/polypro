@@ -4,6 +4,8 @@ import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
+import { AppHeader } from "@/components/AppHeader";
 import {
   User,
   Shield,
@@ -41,7 +43,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useTheme } from "next-themes";
-import { AppHeader } from "@/components/AppHeader";
 
 // Settings sections
 const settingsSections = [
@@ -102,6 +103,7 @@ function SettingsContent() {
   const searchParams = useSearchParams();
   const activeSection = searchParams?.get("tab") || null;
   const { theme, setTheme } = useTheme();
+  const { shouldShowContent } = useAuthGuard({ redirectIfNotAuth: true });
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteConfirmEmail, setDeleteConfirmEmail] = useState("");
@@ -123,6 +125,15 @@ function SettingsContent() {
     productUpdates: true,
     marketing: false,
   });
+
+  // Show loading while checking auth
+  if (!shouldShowContent) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   const handleDeleteAccount = () => {
     if (deleteConfirmEmail !== profile.email) {

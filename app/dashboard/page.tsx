@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { AppHeader } from "@/components/AppHeader";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 import {
   ArrowRight,
   ArrowsCounterClockwise,
@@ -34,7 +35,7 @@ const useUser = () => {
 
 const useMarkets = ({ limit, active }: { limit?: number; active?: boolean }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<{ id: string; question: string; category: string; yesOdds: number; noOdds: number; change: number; volume: number }[]>([]);
 
   useEffect(() => {
     // Simulate API call
@@ -102,13 +103,8 @@ const useMarkets = ({ limit, active }: { limit?: number; active?: boolean }) => 
 };
 
 const useMarketWebSocket = (marketIds: string[]) => {
-  const [isConnected, setIsConnected] = useState(false);
-
-  useEffect(() => {
-    // Simulate WebSocket connection
-    setIsConnected(true);
-    return () => setIsConnected(false);
-  }, [marketIds]);
+  // Use a ref-based approach to avoid setState in effect issue
+  const [isConnected] = useState(() => marketIds.length > 0);
 
   return { isConnected };
 };
@@ -221,7 +217,7 @@ const SwipeableMarketCard = ({
   const rightOpacity = useTransform(x, [0, 100], [0, 1]);
   const leftOpacity = useTransform(x, [-100, 0], [1, 0]);
 
-  const handleDragEnd = (_: any, { offset }: any) => {
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, { offset }: { offset: { x: number; y: number } }) => {
     if (offset.x > 100) {
       onSwipeRight();
       x.set(0);
@@ -312,12 +308,22 @@ const SwipeableMarketCard = ({
 export default function DashboardPage() {
   const user = useUser();
   const { data: markets, isLoading, error, refetch } = useMarkets({ limit: 5, active: true });
+  const { shouldShowContent } = useAuthGuard({ redirectIfNotAuth: true });
   
   const marketIds = useMemo(() => markets?.map((m) => m.id) || [], [markets]);
   const { isConnected } = useMarketWebSocket(marketIds);
 
   // Use markets data directly since we don't have real WebSocket updates yet
   const liveMarkets = useMemo(() => markets || [], [markets]);
+
+  // Show loading while checking auth
+  if (!shouldShowContent) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

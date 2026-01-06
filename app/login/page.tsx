@@ -29,6 +29,11 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
 
+    // Get return URL before login
+    const returnUrl = typeof window !== 'undefined' 
+      ? sessionStorage.getItem('polypro-return-url') || '/dashboard'
+      : '/dashboard';
+
     // Simulate login - set mock user
     setTimeout(() => {
       login({
@@ -37,13 +42,25 @@ export default function LoginPage() {
         email: email || "alex@example.com",
         tier: "pro",
       });
+      
+      // Clear return URL
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('polypro-return-url');
+      }
+      
       setIsLoading(false);
-      router.push("/dashboard");
+      router.push(returnUrl);
     }, 1000);
   };
 
   const handleSocialLogin = (provider: string) => {
     console.log(`Login with ${provider}`);
+    
+    // Get return URL
+    const returnUrl = typeof window !== 'undefined' 
+      ? sessionStorage.getItem('polypro-return-url') || '/dashboard'
+      : '/dashboard';
+    
     // Simulate social login
     login({
       id: "user-1",
@@ -51,8 +68,14 @@ export default function LoginPage() {
       email: "alex@example.com",
       tier: "pro",
     });
+    
+    // Clear return URL
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('polypro-return-url');
+    }
+    
     setTimeout(() => {
-      router.push("/dashboard");
+      router.push(returnUrl);
     }, 500);
   };
 

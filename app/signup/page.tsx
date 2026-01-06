@@ -30,7 +30,12 @@ export default function SignupPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate signup - create and login user
+    // Get return URL
+    const returnUrl = typeof window !== 'undefined' 
+      ? sessionStorage.getItem('polypro-return-url') || '/dashboard'
+      : '/dashboard';
+
+    // Simulate signup - set mock user
     setTimeout(() => {
       login({
         id: "user-" + Date.now(),
@@ -38,13 +43,25 @@ export default function SignupPage() {
         email: email || "user@example.com",
         tier: "free",
       });
+      
+      // Clear return URL
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('polypro-return-url');
+      }
+      
       setIsLoading(false);
-      router.push("/dashboard");
+      router.push(returnUrl);
     }, 1000);
   };
 
   const handleSocialLogin = (provider: string) => {
     console.log(`Signup with ${provider}`);
+    
+    // Get return URL
+    const returnUrl = typeof window !== 'undefined' 
+      ? sessionStorage.getItem('polypro-return-url') || '/dashboard'
+      : '/dashboard';
+    
     // Simulate social signup
     login({
       id: "user-" + Date.now(),
@@ -52,8 +69,14 @@ export default function SignupPage() {
       email: "user@example.com",
       tier: "free",
     });
+    
+    // Clear return URL
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('polypro-return-url');
+    }
+    
     setTimeout(() => {
-      router.push("/dashboard");
+      router.push(returnUrl);
     }, 500);
   };
 
