@@ -4,7 +4,10 @@ import { Providers } from "../components/providers";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: "PolyPro - Prediction Market Intelligence",
+  title: {
+    template: "%s | PolyPro",
+    default: "PolyPro - Prediction Market Intelligence",
+  },
   description: "Track odds, detect arbitrage opportunities, and analyze market sentiment across Polymarket, Kalshi, and more. All in real-time.",
 };
 

@@ -1,20 +1,14 @@
 "use client";
 
+import type { Metadata } from "next";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Envelope, User } from "@phosphor-icons/react";
+import { Envelope, User, TrendUpIcon, ChartLine, Lightning, Sparkle } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -81,30 +75,125 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-secondary/30 to-background flex flex-col">
-      {/* Header */}
-      <header className="h-16 flex items-center px-4">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-subtitle font-bold">
-            Poly<span className="text-primary">Pro</span>
-          </span>
-        </Link>
-      </header>
+    <div className="min-h-screen flex flex-col lg:flex-row">
+      {/* Left Side - Branding & Features (Desktop Only) */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary/10 via-primary/5 to-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/5 [mask-image:radial-gradient(white,transparent_70%)]" />
+        
+        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-title font-bold">
+              Poly<span className="text-primary">Pro</span>
+            </span>
+          </Link>
 
-      {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center p-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md"
-        >
-          <Card className="border-border/50 shadow-xl">
-            <CardHeader className="text-center pb-2">
-              <CardTitle className="text-title">Create your account</CardTitle>
-              <CardDescription className="mt-2">Get started with PolyPro</CardDescription>
-            </CardHeader>
+          {/* Main Content */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <h1 className="text-display font-bold mb-4 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+                Start winning
+                <br />
+                in prediction markets.
+              </h1>
+              <p className="text-subtitle text-muted-foreground max-w-lg">
+                Join thousands of traders using PolyPro to stay ahead of the market.
+              </p>
+            </motion.div>
 
-            <CardContent className="pt-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="space-y-6"
+            >
+              {[
+                {
+                  icon: TrendUpIcon,
+                  title: "Real-Time Analytics",
+                  desc: "Live market data and price tracking"
+                },
+                {
+                  icon: Lightning,
+                  title: "Arbitrage Detection",
+                  desc: "Spot opportunities across platforms"
+                },
+                {
+                  icon: ChartLine,
+                  title: "Advanced Insights",
+                  desc: "Professional-grade market analysis"
+                },
+                {
+                  icon: Sparkle,
+                  title: "Smart Alerts",
+                  desc: "Never miss a critical market move"
+                }
+              ].map((feature, i) => (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <feature.icon className="h-5 w-5 text-primary" weight="bold" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-body mb-1">{feature.title}</h3>
+                    <p className="text-small text-muted-foreground">{feature.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Footer Stats */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="flex gap-8"
+          >
+            <div>
+              <div className="text-title font-bold text-primary">$127M+</div>
+              <div className="text-caption text-muted-foreground">Volume Tracked</div>
+            </div>
+            <div>
+              <div className="text-title font-bold text-primary">15K+</div>
+              <div className="text-caption text-muted-foreground">Active Markets</div>
+            </div>
+            <div>
+              <div className="text-title font-bold text-primary">99.9%</div>
+              <div className="text-caption text-muted-foreground">Uptime</div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Right Side - Form */}
+      <div className="flex-1 flex flex-col lg:w-1/2">
+        {/* Mobile Header */}
+        <header className="lg:hidden h-16 flex items-center px-4 border-b border-border/50">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-subtitle font-bold">
+              Poly<span className="text-primary">Pro</span>
+            </span>
+          </Link>
+        </header>
+
+        {/* Form Content */}
+        <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-md"
+          >
+            <div className="space-y-6">
+              {/* Header */}
+              <div className="space-y-2">
+                <h2 className="text-title font-bold">Create your account</h2>
+                <p className="text-body text-muted-foreground">Get started with PolyPro</p>
+              </div>
+
               {/* Social Login Buttons */}
               <div className="space-y-3">
                 <Button
@@ -155,9 +244,9 @@ export default function SignupPage() {
                 </Button>
               </div>
 
-              <div className="relative my-6">
+              <div className="relative">
                 <Separator />
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-3 text-caption text-muted-foreground whitespace-nowrap">
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-3 text-caption text-muted-foreground whitespace-nowrap">
                   or sign up with email
                 </span>
               </div>
@@ -220,14 +309,14 @@ export default function SignupPage() {
                 </Button>
               </form>
 
-              <p className="text-center text-small text-muted-foreground mt-6">
+              <p className="text-center text-small text-muted-foreground">
                 Already have an account?{" "}
                 <Link href="/login" className="text-primary hover:underline font-medium">
                   Sign in
                 </Link>
               </p>
 
-              <p className="text-center text-caption text-muted-foreground mt-4">
+              <p className="text-center text-caption text-muted-foreground">
                 By continuing, you agree to our{" "}
                 <Link href="/terms" className="text-primary hover:underline">
                   Terms of Service
@@ -237,10 +326,10 @@ export default function SignupPage() {
                   Privacy Policy
                 </Link>
               </p>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </main>
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
