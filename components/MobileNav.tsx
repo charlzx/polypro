@@ -59,7 +59,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
           >
             {/* Header */}
             <div className="flex items-center justify-between h-16 px-4 border-b border-border">
-              <Link to="/" className="flex items-center gap-2" onClick={onClose}>
+              <Link href="/" className="flex items-center gap-2" onClick={onClose}>
                 <span className="text-subtitle font-bold">
                   Poly<span className="text-primary">Pro</span>
                 </span>
@@ -85,7 +85,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     transition={{ delay: index * 0.05 + 0.1 }}
                   >
                     <Link
-                      to={link.href}
+                      href={link.href}
                       onClick={onClose}
                       className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary transition-all group"
                     >
@@ -112,12 +112,12 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             >
               <div className="grid grid-cols-2 gap-3">
                 <Button variant="outline" className="w-full" asChild>
-                  <Link to="/auth" onClick={onClose}>
+                  <Link href="/login" onClick={onClose}>
                     Log in
                   </Link>
                 </Button>
                 <Button className="w-full" asChild>
-                  <Link to="/auth?mode=signup" onClick={onClose}>
+                  <Link href="/signup" onClick={onClose}>
                     Sign up
                   </Link>
                 </Button>

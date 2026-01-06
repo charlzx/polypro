@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun, Desktop } from "@phosphor-icons/react";
+import { Moon, Sun, Monitor } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -35,7 +35,7 @@ export function ThemeToggle({ variant = "compact", className = "" }: ThemeToggle
 
   const getIcon = () => {
     if (theme === "system") {
-      return <Desktop weight="regular" className="h-[1.2rem] w-[1.2rem] text-foreground" />;
+      return <Monitor weight="regular" className="h-[1.2rem] w-[1.2rem] text-foreground" />;
     }
     return resolvedTheme === "light" 
       ? <Sun weight="regular" className="h-[1.2rem] w-[1.2rem] text-foreground" />
@@ -78,7 +78,7 @@ export function ThemeToggle({ variant = "compact", className = "" }: ThemeToggle
             {theme === "light" ? (
               <Sun weight="fill" className="h-3 w-3 text-background" />
             ) : theme === "system" ? (
-              <Desktop weight="fill" className="h-3 w-3 text-background" />
+              <Monitor weight="fill" className="h-3 w-3 text-background" />
             ) : (
               <Moon weight="fill" className="h-3 w-3 text-background" />
             )}
