@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/popover";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { MobileBottomNav } from "@/components/MobileBottomNav";
 
 // Mock notifications data
 const notifications = [
@@ -71,7 +72,8 @@ export function AppHeader({ showSearch = true }: AppHeaderProps) {
   const userTier = "pro";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
       {/* Top Row: Logo, Search, Actions */}
       <div className="h-16 grid grid-cols-3 items-center px-4 lg:px-6 border-b border-border/50">
         {/* Left Section */}
@@ -230,5 +232,7 @@ export function AppHeader({ showSearch = true }: AppHeaderProps) {
         </div>
       </div>
     </header>
+    <MobileBottomNav />
+    </>
   );
 }
