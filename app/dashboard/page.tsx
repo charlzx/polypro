@@ -530,7 +530,7 @@ export default function DashboardPage() {
           </Card>
         </div>
       </motion.div>
-        </div>
+    </div>
       </main>
     </div>
   );
