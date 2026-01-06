@@ -209,7 +209,7 @@ function StatsTicker() {
 }
 
 // Stacking Feature Card Component with improved animation
-function StackingFeatureCard({ feature, index, totalCards }: { feature: typeof features[0]; index: number; totalCards: number }) {
+function StackingFeatureCard({ feature, index }: { feature: typeof features[0]; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
@@ -498,7 +498,6 @@ export default function LandingPage() {
                 key={feature.title}
                 feature={feature}
                 index={index}
-                totalCards={features.length}
               />
             ))}
           </div>

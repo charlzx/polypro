@@ -137,13 +137,8 @@ function MarketSkeleton() {
 }
 
 export default function WatchlistPage() {
-  const [watchlist, setWatchlist] = useState<string[]>([]);
+  const [watchlist, setWatchlist] = useState<string[]>(() => getWatchlist());
   const { toast } = useToast();
-
-  // Initialize watchlist on mount
-  useEffect(() => {
-    setWatchlist(getWatchlist());
-  }, []);
 
   // Fetch markets
   const { data: markets, isLoading } = useMarkets({

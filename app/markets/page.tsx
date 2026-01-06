@@ -157,13 +157,8 @@ export default function MarketsPage() {
   const [sortBy, setSortBy] = useState("volume");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
-  const [watchlist, setWatchlist] = useState<string[]>([]);
+  const [watchlist, setWatchlist] = useState<string[]>(() => getWatchlist());
   const { toast } = useToast();
-
-  // Initialize watchlist on mount
-  useEffect(() => {
-    setWatchlist(getWatchlist());
-  }, []);
 
   // Fetch markets
   const { data: markets, isLoading, error } = useMarkets({
@@ -409,7 +404,7 @@ export default function MarketsPage() {
             </div>
           ) : (
             <div className="rounded-xl border border-border bg-card divide-y divide-border/50 overflow-hidden">
-              {paginatedMarkets.map((market, index) => (
+              {paginatedMarkets.map((market) => (
                 <Link
                   key={market.id}
                   href={`/markets/${market.id}`}
