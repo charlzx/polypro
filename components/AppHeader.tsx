@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MagnifyingGlass, Bell, House, TrendUp, ArrowsClockwise, Wallet, Sparkle } from "@phosphor-icons/react";
+import { MagnifyingGlass, Bell, House, TrendUpIcon, ArrowsClockwise, Wallet, Sparkle } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -52,7 +52,7 @@ const notifications = [
 // Navigation tabs for app variant
 const navTabs = [
   { label: "Dashboard", href: "/dashboard", icon: House },
-  { label: "Markets", href: "/markets", icon: TrendUp },
+  { label: "Markets", href: "/markets", icon: TrendUpIcon },
   { label: "Arbitrage", href: "/arbitrage", icon: ArrowsClockwise, premium: true },
   { label: "Portfolio", href: "/portfolio", icon: Wallet },
   { label: "Alerts", href: "/alerts", icon: Bell },

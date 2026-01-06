@@ -9,8 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import {
   Star,
-  TrendUp,
-  TrendDown,
+  TrendUpIcon,
+  TrendDownIcon,
   ArrowUpRight,
   ArrowLeft,
 } from "@phosphor-icons/react";
@@ -88,9 +88,9 @@ function MarketCard({ market, onToggleWatch, index }: {
                 market.change24h >= 0 ? "text-success" : "text-destructive"
               }`}>
                 {market.change24h >= 0 ? (
-                  <TrendUp weight="bold" className="h-3 w-3 mr-1" />
+                  <TrendUpIcon weight="bold" className="h-3 w-3 mr-1" />
                 ) : (
-                  <TrendDown weight="bold" className="h-3 w-3 mr-1" />
+                  <TrendDownIcon weight="bold" className="h-3 w-3 mr-1" />
                 )}
                 {market.change24h >= 0 ? "+" : ""}{market.change24h}%
               </div>

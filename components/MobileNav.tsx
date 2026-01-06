@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { TrendUp, ChartBar, Shield, CurrencyDollar, ArrowRight, X, List } from "@phosphor-icons/react";
+import { TrendUpIcon, ChartBar, Shield, CurrencyDollar, ArrowRight, X, List } from "@phosphor-icons/react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface MobileNavProps {
@@ -12,7 +12,7 @@ interface MobileNavProps {
 }
 
 const navLinks = [
-  { label: "Markets", href: "/markets", icon: TrendUp, description: "Browse prediction markets" },
+  { label: "Markets", href: "/markets", icon: TrendUpIcon, description: "Browse prediction markets" },
   { label: "Analytics", href: "/dashboard", icon: ChartBar, description: "Track your portfolio" },
   { label: "Arbitrage", href: "/arbitrage", icon: Shield, description: "Find profit opportunities" },
   { label: "Pricing", href: "/pricing", icon: CurrencyDollar, description: "View pricing plans" },

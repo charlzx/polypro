@@ -3,7 +3,7 @@
  * Mock data simulating real-time market alerts
  */
 
-import { Bell, Lightning, TrendUp } from "@phosphor-icons/react";
+import { Bell, Lightning, TrendUpIcon } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
 
 export interface Alert {
@@ -132,7 +132,7 @@ export interface AlertStat {
 export const alertStats: AlertStat[] = [
   { label: "Total Alerts", value: "12", icon: Bell },
   { label: "Active", value: "8", icon: Lightning },
-  { label: "Triggered Today", value: "5", icon: TrendUp },
+  { label: "Triggered Today", value: "5", icon: TrendUpIcon },
 ];
 
 export const alertTypes = [

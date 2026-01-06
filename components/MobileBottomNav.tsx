@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { House, TrendUp, ArrowsClockwise, Wallet, Bell } from "@phosphor-icons/react";
+import { House, TrendUpIcon, ArrowsClockwise, Wallet, Bell } from "@phosphor-icons/react";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: House },
-  { label: "Markets", href: "/markets", icon: TrendUp },
+  { label: "Markets", href: "/markets", icon: TrendUpIcon },
   { label: "Arbitrage", href: "/arbitrage", icon: ArrowsClockwise },
   { label: "Portfolio", href: "/portfolio", icon: Wallet },
   { label: "Alerts", href: "/alerts", icon: Bell },

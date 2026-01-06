@@ -17,8 +17,8 @@ import {
 } from "@/components/ui/select";
 import {
   MagnifyingGlass,
-  TrendUp,
-  TrendDown,
+  TrendUpIcon,
+  TrendDownIcon,
   Star,
   SquaresFour,
   List,
@@ -105,9 +105,9 @@ function MarketCard({ market, isWatched, onToggleWatch, index }: {
                 market.change24h >= 0 ? "text-success" : "text-destructive"
               }`}>
                 {market.change24h >= 0 ? (
-                  <TrendUp weight="bold" className="h-3 w-3 mr-1" />
+                  <TrendUpIcon weight="bold" className="h-3 w-3 mr-1" />
                 ) : (
-                  <TrendDown weight="bold" className="h-3 w-3 mr-1" />
+                  <TrendDownIcon weight="bold" className="h-3 w-3 mr-1" />
                 )}
                 {market.change24h >= 0 ? "+" : ""}{market.change24h}%
               </div>

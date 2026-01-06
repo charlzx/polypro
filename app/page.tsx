@@ -15,8 +15,8 @@ import { features } from "@/data/features";
 import { categories } from "@/data/categories";
 import {
   MagnifyingGlass,
-  TrendUp,
-  TrendDown,
+  TrendUpIcon,
+  TrendDownIcon,
   CaretRight,
   Lightning,
   Broadcast,
@@ -46,9 +46,9 @@ function PredictionsTicker() {
                 prediction.change > 0 ? "text-success" : "text-destructive"
               }`}>
                 {prediction.change > 0 ? (
-                  <TrendUp weight="bold" className="h-3 w-3" />
+                  <TrendUpIcon weight="bold" className="h-3 w-3" />
                 ) : (
-                  <TrendDown weight="bold" className="h-3 w-3" />
+                  <TrendDownIcon weight="bold" className="h-3 w-3" />
                 )}
                 {Math.abs(prediction.change)}%
               </span>
@@ -70,9 +70,9 @@ function PredictionsTicker() {
                 prediction.change > 0 ? "text-success" : "text-destructive"
               }`}>
                 {prediction.change > 0 ? (
-                  <TrendUp weight="bold" className="h-3 w-3" />
+                  <TrendUpIcon weight="bold" className="h-3 w-3" />
                 ) : (
-                  <TrendDown weight="bold" className="h-3 w-3" />
+                  <TrendDownIcon weight="bold" className="h-3 w-3" />
                 )}
                 {Math.abs(prediction.change)}%
               </span>
@@ -124,9 +124,9 @@ function FeaturedMarket({ market, isLive, index }: { market: TransformedMarket; 
                 }`}
               >
                 {market.change24h >= 0 ? (
-                  <TrendUp weight="bold" className="h-3 w-3" />
+                  <TrendUpIcon weight="bold" className="h-3 w-3" />
                 ) : (
-                  <TrendDown weight="bold" className="h-3 w-3" />
+                  <TrendDownIcon weight="bold" className="h-3 w-3" />
                 )}
                 {market.change24h >= 0 ? "+" : ""}
                 {market.change24h}%

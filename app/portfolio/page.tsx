@@ -4,8 +4,8 @@ import { useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import {
-  TrendUp,
-  TrendDown,
+  TrendUpIcon,
+  TrendDownIcon,
   Wallet,
   Coins,
   Percent,
@@ -40,7 +40,7 @@ const portfolioStats = [
   {
     label: "Unrealized P&L",
     value: "+1,247",
-    icon: TrendUp,
+    icon: TrendUpIcon,
     change: "+17.8%",
     positive: true,
   },

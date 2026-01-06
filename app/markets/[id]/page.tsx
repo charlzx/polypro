@@ -11,8 +11,8 @@ import {
   Star,
   ShareNetwork,
   Bell,
-  TrendUp,
-  TrendDown,
+  TrendUpIcon,
+  TrendDownIcon,
   CaretLeft,
   ArrowSquareOut,
   Clock,
@@ -134,8 +134,8 @@ function VolatilityIndicator({ level, momentum }: { level: 'low' | 'medium' | 'h
   };
   
   const momentumIcons = {
-    bullish: <TrendUp className="h-3 w-3" />,
-    bearish: <TrendDown className="h-3 w-3" />,
+    bullish: <TrendUpIcon className="h-3 w-3" />,
+    bearish: <TrendDownIcon className="h-3 w-3" />,
     neutral: <ChartLine className="h-3 w-3" />,
   };
   
@@ -422,9 +422,9 @@ export default function MarketDetailPage({ params }: { params: Promise<{ id: str
                         market.change24h >= 0 ? "text-success" : "text-destructive"
                       }`}>
                         {market.change24h >= 0 ? (
-                          <TrendUp className="h-5 w-5 mr-1" />
+                          <TrendUpIcon className="h-5 w-5 mr-1" />
                         ) : (
-                          <TrendDown className="h-5 w-5 mr-1" />
+                          <TrendDownIcon className="h-5 w-5 mr-1" />
                         )}
                         {market.change24h >= 0 ? "+" : ""}{market.change24h}%
                       </div>
@@ -653,7 +653,7 @@ export default function MarketDetailPage({ params }: { params: Promise<{ id: str
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <TrendUp className="h-4 w-4" />
+                    <TrendUpIcon className="h-4 w-4" />
                     <span className="text-small">24h Volume</span>
                   </div>
                   <span className="text-small font-semibold">{market.volume24h || market.volume}</span>

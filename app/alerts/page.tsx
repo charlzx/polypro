@@ -7,7 +7,7 @@ import { useAuthGuard } from "@/hooks/useAuthGuard";
 import {
   Bell,
   Plus,
-  TrendUp,
+  TrendUpIcon,
   Lightning,
   Pencil,
   Trash,

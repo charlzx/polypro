@@ -7,7 +7,7 @@ import { AppHeader } from "@/components/AppHeader";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import {
   ArrowsClockwise,
-  TrendUp,
+  TrendUpIcon,
   Clock,
   CaretDown,
   CaretUp,
