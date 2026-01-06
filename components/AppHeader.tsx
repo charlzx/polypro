@@ -69,7 +69,7 @@ export function AppHeader({ showSearch = true }: AppHeaderProps) {
   // Mock user data - replace with actual auth
   const displayName = "Alex Chen";
   const displayEmail = "alex@example.com";
-  const userTier = "pro";
+  const userTier: string = "pro";
 
   return (
     <>
