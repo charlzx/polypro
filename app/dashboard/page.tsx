@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import { AppHeader } from "@/components/AppHeader";
 import {
   ArrowRight,
   ArrowsCounterClockwise,
@@ -319,7 +320,10 @@ export default function DashboardPage() {
   const liveMarkets = useMemo(() => markets || [], [markets]);
 
   return (
-    <div className="container max-w-screen-2xl py-6 md:py-8 space-y-6 md:space-y-8">
+    <div className="min-h-screen bg-background">
+      <AppHeader />
+      <main className="pt-[120px] md:pt-[88px] pb-20 md:pb-0 min-h-screen">
+        <div className="container max-w-screen-2xl py-6 md:py-8 space-y-6 md:space-y-8">
       {/* Welcome Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -526,6 +530,8 @@ export default function DashboardPage() {
           </Card>
         </div>
       </motion.div>
+        </div>
+      </main>
     </div>
   );
 }

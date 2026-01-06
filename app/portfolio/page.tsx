@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AppHeader } from "@/components/AppHeader";
 import {
   TrendUp,
   TrendDown,
@@ -127,7 +128,10 @@ export default function PortfolioPage() {
   const [timeframe, setTimeframe] = useState("30D");
 
   return (
-    <div className="container max-w-screen-2xl py-6 md:py-8 space-y-4 md:space-y-6">
+    <div className="min-h-screen bg-background">
+      <AppHeader />
+      <main className="pt-[120px] md:pt-[88px] pb-20 md:pb-0 min-h-screen">
+        <div className="container max-w-screen-2xl py-6 md:py-8 space-y-4 md:space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -402,6 +406,8 @@ export default function PortfolioPage() {
           </Card>
         </TabsContent>
       </Tabs>
+        </div>
+      </main>
     </div>
   );
 }

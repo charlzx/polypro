@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { AppHeader } from "@/components/AppHeader";
 import {
   Bell,
   Plus,
@@ -59,7 +60,10 @@ export default function AlertsPage() {
   };
 
   return (
-    <div className="container max-w-screen-2xl py-6 md:py-8 space-y-4 md:space-y-6">
+    <div className="min-h-screen bg-background">
+      <AppHeader />
+      <main className="pt-[120px] md:pt-[88px] pb-20 md:pb-0 min-h-screen">
+        <div className="container max-w-screen-2xl py-6 md:py-8 space-y-4 md:space-y-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -275,6 +279,8 @@ export default function AlertsPage() {
           </CardContent>
         </Card>
       )}
+        </div>
+      </main>
     </div>
   );
 }

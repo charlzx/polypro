@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { AppHeader } from "@/components/AppHeader";
 import {
   ArrowsClockwise,
   TrendUp,
@@ -41,7 +42,10 @@ export default function ArbitragePage() {
   const filteredOpportunities = opportunities.filter((opp) => opp.profit >= minProfit[0]);
 
   return (
-    <div className="container max-w-screen-2xl py-6 md:py-8 space-y-4 md:space-y-6">
+    <div className="min-h-screen bg-background">
+      <AppHeader />
+      <main className="pt-[120px] md:pt-[88px] pb-20 md:pb-0 min-h-screen">
+        <div className="container max-w-screen-2xl py-6 md:py-8 space-y-4 md:space-y-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -314,6 +318,8 @@ export default function ArbitragePage() {
           </Card>
         </motion.div>
       </div>
+        </div>
+      </main>
     </div>
   );
 }
